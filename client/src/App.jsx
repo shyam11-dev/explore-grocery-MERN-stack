@@ -9,6 +9,7 @@ import { AppContext } from "./context/AppContext";
 import MyOrders from "./pages/MyOrders";
 import Auth from "./models/Auth";
 import ProductCategory from "./pages/ProductCategory";
+import Footer from "./components/Footer";
 const App = () => {
   const { isSeller, showUserLogin } = useContext(AppContext);
   const isIsSellerPath = useLocation().pathname.includes("seller");
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/my-orders" element={<MyOrders />}></Route>
         </Routes>
       </div>
+      {isIsSellerPath ? null : <Footer></Footer>}
     </div>
   );
 };
