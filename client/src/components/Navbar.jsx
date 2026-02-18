@@ -4,7 +4,8 @@ import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets.js";
 
 const Navbar = () => {
-  const { user, setUser, navigate, setShowUserLogin } = useContext(AppContext);
+  const { user, setUser, navigate, setShowUserLogin, cartCount } =
+    useContext(AppContext);
   const [open, setOpen] = React.useState(false);
   return (
     <nav className="flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white relative transition-all">
@@ -56,7 +57,7 @@ const Navbar = () => {
         >
           <img src={assets.cart_icon} className="w-6 h-6" alt="" />
           <button className="absolute -top-2 -right-3 text-xs text-white bg-indigo-500 w-[18px] h-[18px] rounded-full">
-            3
+            {cartCount()}
           </button>
         </div>
 
