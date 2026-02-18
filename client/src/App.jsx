@@ -10,13 +10,15 @@ import MyOrders from "./pages/MyOrders";
 import Auth from "./models/Auth";
 import ProductCategory from "./pages/ProductCategory";
 import Footer from "./components/Footer";
+import { Toaster } from "react-hot-toast";
 const App = () => {
   const { isSeller, showUserLogin } = useContext(AppContext);
-  const isIsSellerPath = useLocation().pathname.includes("seller");
+  const isSellerPath = useLocation().pathname.includes("seller");
   return (
     <div className="text-default min-h-screen">
-      {isIsSellerPath ? null : <Navbar></Navbar>}
+      {isSellerPath ? null : <Navbar></Navbar>}
       {showUserLogin ? <Auth></Auth> : null}
+      <Toaster></Toaster>
       <div className="px-6 md:px-16 lg:px-24 xl:px-32">
         <Routes>
           <Route path="/" element={<Home />}></Route>
@@ -33,7 +35,7 @@ const App = () => {
           <Route path="/my-orders" element={<MyOrders />}></Route>
         </Routes>
       </div>
-      {isIsSellerPath ? null : <Footer></Footer>}
+      {isSellerPath ? null : <Footer></Footer>}
     </div>
   );
 };
