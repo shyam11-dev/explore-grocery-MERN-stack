@@ -52,13 +52,21 @@ const Cart = () => {
           <p className="text-center">Action</p>
         </div>
 
-        {products.map((product, index) => (
+        {cartArray.map((product, index) => (
           <div
             key={index}
             className="grid grid-cols-[2fr_1fr_1fr] text-gray-500 items-center text-sm md:text-base font-medium pt-3"
           >
             <div className="flex items-center md:gap-6 gap-3">
-              <div className="cursor-pointer w-24 h-24 flex items-center justify-center border border-gray-300 rounded overflow-hidden">
+              <div
+                onClick={() => {
+                  navigate(
+                    `/products/${product.category.toLowerCase()}/${product._id}`,
+                  );
+                  scrollTo(0, 0);
+                }}
+                className="cursor-pointer w-24 h-24 flex items-center justify-center border border-gray-300 rounded overflow-hidden"
+              >
                 <img
                   className="max-w-full h-full object-cover"
                   src={product.image[0]}
@@ -69,12 +77,21 @@ const Cart = () => {
                 <p className="hidden md:block font-semibold">{product.name}</p>
                 <div className="font-normal text-gray-500/70">
                   <p>
-                    Size: <span>{product.size || "N/A"}</span>
+                    Weight: <span>{product.weight || "N/A"}</span>
                   </p>
                   <div className="flex items-center">
                     <p>Qty:</p>
-                    <select className="outline-none">
-                      {Array(5)
+
+                    <select
+                      onChange={(e) =>
+                        updateCartItem(product._id, Number(e.target.value))
+                      }
+                      value={cardItems[product._id]}
+                      className="outline-none"
+                    >
+                      {Array(
+                        cardItems[product._id] > 9 ? cardItems[product._id] : 9,
+                      )
                         .fill("")
                         .map((_, index) => (
                           <option key={index} value={index + 1}>
@@ -89,7 +106,10 @@ const Cart = () => {
             <p className="text-center">
               ${product.offerPrice * product.quantity}
             </p>
-            <button className="cursor-pointer mx-auto">
+            <button
+              onClick={() => removeFromCart(product._id)}
+              className="cursor-pointer mx-auto"
+            >
               <svg
                 width="20"
                 height="20"
@@ -109,7 +129,13 @@ const Cart = () => {
           </div>
         ))}
 
-        <button className="group cursor-pointer flex items-center mt-8 gap-2 text-indigo-500 font-medium">
+        <button
+          onClick={() => {
+            navigate("/products");
+            scrollTo(0, 0);
+          }}
+          className="group cursor-pointer flex items-center mt-8 gap-2 text-indigo-500 font-medium"
+        >
           <svg
             width="15"
             height="11"
