@@ -5,8 +5,8 @@ import { assets } from "../assets/assets";
 const ProductDetail = () => {
   const { products, navigate, addToCart } = useContext(AppContext);
   const { id } = useParams();
-  const [thumbnail, setThumbnail] = useState(null);
   const product = products.find((product) => product._id === id);
+  const [thumbnail, setThumbnail] = useState(null);
   useEffect(() => {
     setThumbnail(product?.image[0] ? product.image[0] : null);
   }, [product]);

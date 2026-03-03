@@ -52,7 +52,7 @@ const App = () => {
           >
             <Route
               index
-              path="add-product"
+              // path="add-product"
               element={isSeller ? <AddProduct></AddProduct> : null}
             />
             <Route
